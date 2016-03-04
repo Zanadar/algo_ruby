@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'pry'
 require_relative '../insertion_sort'
 require_relative '../recursion'
+require_relative '../merge_sort'
+require_relative '../quick_sort'
 
 class TestInsertSort < MiniTest::Test
 
@@ -50,6 +52,32 @@ class TestRecursive < MiniTest::Test
     assert_equal Recursive.power(3, 1), 3
     assert_equal Recursive.power(3, 2), 9
     assert_equal  1/3r, Recursive.power(3, -1)
+  end
+end
+
+class TestQuickSort < MiniTest::Test
+  def test_quick_sort
+    myArr = Array.new(100) {rand(189)}
+    sorted = myArr.sort
+
+    assert_equal sorted, Quick.sort(myArr)
+  end
+
+  def test_in_place_quicksort
+    myArr = Array.new(100) {rand(189)}
+    sorted = myArr.sort
+
+    assert_equal sorted, Quick.in_place(myArr, 0, myArr.length-1)
+  end
+end
+
+class TestMergeSort < MiniTest::Test
+
+  def test_merge_sort
+    myArr = Array.new(100) {rand(189)}
+    sorted = myArr.sort
+
+    assert_equal sorted, Merge.sort(myArr)
   end
 end
 
