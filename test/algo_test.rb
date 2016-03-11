@@ -1,9 +1,14 @@
+$LOAD_PATH.unshift("#{File.dirname(__FILE__)}/../lib")
+
 require 'minitest/autorun'
 require 'pry'
-require_relative '../insertion_sort'
-require_relative '../recursion'
-require_relative '../merge_sort'
-require_relative '../quick_sort'
+require 'insertion_sort'
+require 'recursion'
+require 'merge_sort'
+require 'quick_sort'
+require 'search'
+require 'binary_tree'
+require 'graph'
 
 class TestInsertSort < MiniTest::Test
 
@@ -81,4 +86,35 @@ class TestMergeSort < MiniTest::Test
   end
 end
 
+
+class TestBinaryTree < Minitest::Test
+
+  def test_to_s
+    @root = Node.new(5)
+    @root.left = Node.new(3)
+    @root.right = Node.new(7)
+
+    assert_equal "{3}-{5}-{7}", @root.to_s
+  end
+end
+
+class TestGraph < Minitest::Test
+         #  A  B  C  D  E  F
+  @@graph = [
+           [0, 1, 1, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 1],
+           [0, 0, 0, 0, 0, 1],
+           [0, 0, 0, 0, 0, 0],
+           [0, 0, 0, 0, 0, 0]
+          ]
+
+  def test_dfs
+    assert Graph.search(@@graph, 0, 5)
+    assert Graph.search(@@graph, 0, 5, type: :bfs)
+    assert_equal false, Graph.search(@@graph, 4, 5, type: :dfs)
+    assert_equal (-1), Graph.search(@@graph, 4, 5, type: :bad)
+
+  end
+end
 

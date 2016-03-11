@@ -1,3 +1,5 @@
+require 'pry'
+
 class Node
   include Enumerable
 
@@ -15,5 +17,9 @@ class Node
 
   def <=>(other_node)
     data <=> other_node.data
+  end
+
+  def to_s
+    self.map{|n| "{#{n.data}}"}.join("-")
   end
 end
