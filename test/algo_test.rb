@@ -8,6 +8,7 @@ require 'merge_sort'
 require 'quick_sort'
 require 'search'
 require 'binary_tree'
+require 'binary_search'
 require 'graph'
 
 class TestInsertSort < MiniTest::Test
@@ -60,22 +61,6 @@ class TestRecursive < MiniTest::Test
   end
 end
 
-class TestQuickSort < MiniTest::Test
-  def test_quick_sort
-    myArr = Array.new(100) {rand(189)}
-    sorted = myArr.sort
-
-    assert_equal sorted, Quick.sort(myArr)
-  end
-
-  def test_in_place_quicksort
-    myArr = Array.new(100) {rand(189)}
-    sorted = myArr.sort
-
-    assert_equal sorted, Quick.in_place(myArr, 0, myArr.length-1)
-  end
-end
-
 class TestMergeSort < MiniTest::Test
 
   def test_merge_sort
@@ -95,6 +80,35 @@ class TestBinaryTree < Minitest::Test
     @root.right = Node.new(7)
 
     assert_equal "{3}-{5}-{7}", @root.to_s
+  end
+end
+
+class TestQuickSort < Minitest::Test
+  def test_quicksort
+    myArr = Array.new(10) {rand(100)}
+    sorted = myArr.sort
+
+    assert_equal sorted, QuickSort.sort(myArr)
+  end
+end
+
+
+class TestMergeSort < Minitest::Test
+  def test_merge_sort
+    myArr = Array.new(100) {rand(100)}
+    sorted = myArr.sort
+
+    assert_equal sorted, MergeSort.new(myArr).sort
+  end
+end
+
+class TestBinarySearch < Minitest::Test
+  def test_binary_search
+    myArr = Array.new(100) {rand(100)}.sort.uniq!
+    find = rand(100)
+
+
+    assert_equal myArr.index(find), BinarySearch.new(myArr).run(find)
   end
 end
 
