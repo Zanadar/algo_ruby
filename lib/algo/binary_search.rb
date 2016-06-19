@@ -1,5 +1,3 @@
-require 'pry'
-
 class BinarySearch
   def initialize(arr)
     @arr = arr

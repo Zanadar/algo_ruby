@@ -1,5 +1,3 @@
-require 'pry'
-
 class InsertSort
   def self.sorted_insert(arr, ri, value)
     i = ri

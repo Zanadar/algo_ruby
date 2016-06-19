@@ -1,5 +1,3 @@
-require 'pry'
-
 class Graph
   class << self
     def search(adj_matrix, start, stop, type: :dfs)

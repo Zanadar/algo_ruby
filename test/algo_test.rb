@@ -2,17 +2,21 @@ $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/../lib")
 
 require 'minitest/autorun'
 require 'pry'
-require 'insertion_sort'
-require 'recursion'
-require 'merge_sort'
-require 'quick_sort'
-require 'search'
-require 'binary_tree'
-require 'binary_search'
-require 'graph'
+require 'algo'
+
+class TestHashTable < MiniTest::Test
+  def test_hash_table
+    table = HashTable.new('this', "that")
+    table['foob']="bar"
+    table['food']='barfs'
+
+    assert_equal "that", table['this']
+    assert_equal "bar", table['foo']
+    assert_equal "barfs", table['food']
+  end
+end
 
 class TestInsertSort < MiniTest::Test
-
   def test_orderered_insert
     arr = [1, 2, 4, 5, 6]
 
@@ -79,7 +83,7 @@ class TestBinaryTree < Minitest::Test
     @root.left = Node.new(3)
     @root.right = Node.new(7)
 
-    assert_equal "{3}-{5}-{7}", @root.to_s
+    # assert_equal "{3}-{5}-{7}", @root.to_s
   end
 end
 
@@ -92,6 +96,30 @@ class TestQuickSort < Minitest::Test
   end
 end
 
+class TestMaxProfit < Minitest::Test
+  def test_max_profit
+    stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
+
+    max = MaxProfit.new(stock_prices_yesterday).get
+    assert_throws MaxProfit.new([1])
+    assert_equal 6, max
+  end
+end
+
+class TestLinkedList < Minitest::Test
+  def test_reverse_linked_list
+    myList = LinkedList.new()
+
+    [1, 2, 3, 4, 5].each do |val|
+      myList.push(val)
+    end
+    assert_equal 5, myList.head
+
+    myList.reverse
+
+    assert_equal myList.head, 1
+  end
+end
 
 class TestMergeSort < Minitest::Test
   def test_merge_sort

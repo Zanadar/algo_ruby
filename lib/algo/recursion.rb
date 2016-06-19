@@ -1,5 +1,3 @@
-require 'pry'
-
 class Recursive
   class << self
     def iter_factorial(n)
