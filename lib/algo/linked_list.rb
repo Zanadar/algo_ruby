@@ -1,4 +1,4 @@
-class Node
+class LinkedNode
   attr_accessor :next_node, :value
 
   def initialize(value)
@@ -15,7 +15,7 @@ class LinkedList
   end
 
   def push(value)
-    new_node = Node.new(value)
+    new_node = LinkedNode.new(value)
     new_node.next_node = @head
     @head = new_node
   end

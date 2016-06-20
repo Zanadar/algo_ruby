@@ -1,26 +1,39 @@
 class Graph
-  class << self
-    def search(adj_matrix, start, stop, type: :dfs)
-      return -1 if type != :dfs && type != :bfs
-      node_stack = [start]
+  def initialize(graph)
+    @graph = graph
+  end
 
-      loop do
-        curr_node = node_stack.pop
-        return false if curr_node == nil
-        return true if curr_node == stop
+  def search(start, target, type: :bfs)
+    type == :bfs ? do_bfs(start, target) : do_dfs(start, target)
+  end
 
-        children = (0..adj_matrix.length-1).to_a.select do |i|
-          adj_matrix[curr_node][i] == 1
-        end
+  private
+  def do_dfs(start, target)
+    search_stack = [start]
+    while true
+      current = search_stack.pop
+      return false if current == nil
+      return true if current == target
 
-        if type == :dfs
-          node_stack = node_stack + children
-        else
-          node_stack = children + node_stack
-        end
+      children = (0...@graph.length).to_a.select do |i|
+        @graph[current][i] == 1
       end
+      search_stack = children + search_stack
+    end
+  end
+
+  def do_bfs(start, target)
+    search_queue = [start]
+    while true
+      current = search_queue.shift
+      return false if current == nil
+      return true if current == target
+
+      children = (0...@graph.length).to_a.select do |i|
+        @graph[current][i] == 1
+      end
+
+      search_queue = search_queue + children
     end
   end
 end
-
-

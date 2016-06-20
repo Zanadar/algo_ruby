@@ -1,4 +1,4 @@
-class Node
+class LinkedNode
   attr_accessor :next, :value
 
   def initialize(value)

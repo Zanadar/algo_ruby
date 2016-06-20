@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'pry'
 require 'algo'
 
-class TestHashTable < MiniTest::Test
+class TestHashTable < MiniTest::Skip
   def test_hash_table
     table = HashTable.new('this', "that")
     table['foob']="bar"
@@ -80,10 +80,30 @@ class TestBinaryTree < Minitest::Test
 
   def test_to_s
     @root = Node.new(5)
-    @root.left = Node.new(3)
-    @root.right = Node.new(7)
+    @root.insert(Node.new(3))
+    @root.insert(Node.new(7))
+    @root.insert(Node.new(1))
+    @root.insert(Node.new(4))
+    @root.insert(Node.new(2))
+    @root.insert(Node.new(6))
+    assert 3, @root.left.data
+    assert 1, @root.left.left.data
+    assert 2, @root.left.left.right.data
+    assert 4, @root.left.right.data
+    assert 7, @root.right.data
+    assert 6, @root.right.left.data
 
-    # assert_equal "{3}-{5}-{7}", @root.to_s
+    assert_equal Node.new(3).data, @root.search(3).data
+    assert_equal nil, @root.search(13)
+
+    tree = @root
+    @root.print_tree_in_order
+
+    puts
+    BFS.levels(@root)
+
+
+    # assert_equal [[5], [3, 7], [1, 2, 8, 9]], levels
   end
 end
 
@@ -96,7 +116,7 @@ class TestQuickSort < Minitest::Test
   end
 end
 
-class TestMaxProfit < Minitest::Test
+class TestMaxProfit < Minitest::Skip
   def test_max_profit
     stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
 
@@ -152,10 +172,10 @@ class TestGraph < Minitest::Test
           ]
 
   def test_dfs
-    assert Graph.search(@@graph, 0, 5)
-    assert Graph.search(@@graph, 0, 5, type: :bfs)
-    assert_equal false, Graph.search(@@graph, 4, 5, type: :dfs)
-    assert_equal (-1), Graph.search(@@graph, 4, 5, type: :bad)
+    graph = Graph.new(@@graph)
+    assert graph.search( 0, 5)
+    assert graph.search( 0, 5, type: :bfs)
+    assert_equal false, graph.search( 4, 5, type: :dfs)
 
   end
 end
